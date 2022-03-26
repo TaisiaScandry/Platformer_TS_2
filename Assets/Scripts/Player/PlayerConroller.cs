@@ -10,11 +10,15 @@ public class PlayerConroller : MonoBehaviour
     public float velocity;
     public float jumpHeight;
     public Transform groundCheck;
+    public int HealthPoints = 5;
+    int CurrentHealthPoints;
+
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        CurrentHealthPoints = HealthPoints;
     }
 
     // Update is called once per frame
@@ -29,7 +33,7 @@ public class PlayerConroller : MonoBehaviour
             flip();
             if (isGrounded)
             {
-                animator.SetInteger("state", 2);
+                animator.SetInteger("State", 2);
             }
         }
         flip();
@@ -46,7 +50,8 @@ public class PlayerConroller : MonoBehaviour
         if (Input.GetAxis("Horizontal") > 0)
         {
             transform.localRotation = Quaternion.Euler(0, 0, 0);
-        } else if (Input.GetAxis("Horizontal") < 0)
+        }
+        else if (Input.GetAxis("Horizontal") < 0)
         {
             transform.localRotation = Quaternion.Euler(0, 180, 0);
         }
@@ -63,7 +68,27 @@ public class PlayerConroller : MonoBehaviour
         isGrounded = colliders.Length > 1;
         if (!isGrounded)
         {
-            animator.SetInteger("state", 3);
+            animator.SetInteger("State", 3);
         }
+    }
+
+    public void RecountHealthPoints(int deltaHealthPoints)
+    {
+        CurrentHealthPoints += deltaHealthPoints;
+        if (deltaHealthPoints < 0)
+        {
+            StartCoroutine(OnHit());
+        }
+        if (CurrentHealthPoints <= 0)
+        {
+            GetComponent<CapsuleCollider2D>().enabled = false;
+        }
+    }
+
+    IEnumerator OnHit()
+    {
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.color = new Color(1f, sr.color.g - 0.02f, sr.color.b - 0.02f);
+        yield return new WaitForSeconds(0.02f);
     }
 }
