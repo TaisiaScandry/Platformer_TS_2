@@ -12,6 +12,13 @@ public class PlayerConroller : MonoBehaviour
     public Transform groundCheck;
     public int HealthPoints = 5;
     int CurrentHealthPoints;
+    bool isHit = false;
+    public Main main;
+
+    void Lose()
+    {
+        main.GetComponent<Main>().Lose();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -77,18 +84,35 @@ public class PlayerConroller : MonoBehaviour
         CurrentHealthPoints += deltaHealthPoints;
         if (deltaHealthPoints < 0)
         {
+            StopCoroutine(OnHit());
+            isHit = true;
             StartCoroutine(OnHit());
         }
         if (CurrentHealthPoints <= 0)
         {
             GetComponent<CapsuleCollider2D>().enabled = false;
+            Invoke("Lose", 2f);
         }
     }
 
     IEnumerator OnHit()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        sr.color = new Color(1f, sr.color.g - 0.02f, sr.color.b - 0.02f);
+        if (isHit)
+        {
+            sr.color = new Color(1f, sr.color.g - 0.02f, sr.color.b - 0.02f);
+        } else {
+            sr.color = new Color(1f, sr.color.g + 0.02f, sr.color.b + 0.02f);
+        }
+        if (sr.color.g ==1f)
+        {
+            StopCoroutine(OnHit());
+        } 
+        if (sr.color.g <= 0)
+        {
+            isHit = false;
+        }
         yield return new WaitForSeconds(0.02f);
+        StartCoroutine(OnHit());
     }
 }
