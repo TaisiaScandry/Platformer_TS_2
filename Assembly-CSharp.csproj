@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
     <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\Enemies\Worm\WormController.cs" />
+    <Compile Include="Assets\Scripts\Enemies\Fly\FlyControler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
