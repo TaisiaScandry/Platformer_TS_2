@@ -5,7 +5,7 @@ using UnityEngine;
 public class BeeController : MonoBehaviour
 {
     public Transform[] points;
-    float speed = 2f;
+    float speed = 3f;
     float waitTime = 3f;
     bool canFly = true;
     public int pointIndex = 0;
