@@ -58,9 +58,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Camera\CameraControler.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerConroller.cs" />
-    <Compile Include="Assets\Scripts\Enemies\Saw\SawController.cs" />
-    <Compile Include="Assets\Scripts\Main.cs" />
     <Compile Include="Assets\Scripts\Enemies\Bee\BeeController.cs" />
+    <Compile Include="Assets\Scripts\Enemies\Enemy.cs" />
+    <Compile Include="Assets\Scripts\Main.cs" />
+    <Compile Include="Assets\Scripts\Enemies\Fly\FlyControler.cs" />
+    <Compile Include="Assets\Scripts\Enemies\Worm\WormController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
